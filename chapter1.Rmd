@@ -1,4 +1,4 @@
 
 # About the project
 
-*W rite a short description about the course and My github repository: https://github.com/Pedusal/IODS-project. This is an R markdown (.Rmd) file so you can use R markdown syntax. See the 'Useful links' page in the mooc area (chapter 1) for instructions.*
+*This course is about the core themes of data science such as visualising, analyzing and interpreting data. This course is for everyone who wants to become a better data scientist! I also expect that this course will improve my coding skills. My github repository: https://github.com/Pedusal/IODS-project *
