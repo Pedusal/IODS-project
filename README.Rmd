@@ -1,3 +1,4 @@
+output: github_document
 # About the project
 
 *This course is about the core themes of data science such as visualising, analyzing and interpreting data. This course is for everyone who wants to become a better data scientist! I also expect that this course will improve my coding skills. Link to my course diary: https://Pedusal.github.io/IODS-project/*
