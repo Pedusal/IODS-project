@@ -13,9 +13,29 @@ learn14 <- read.table("data/learning2014.txt")
 
 This dataset consist answers to a survey which was done in course Introduction to Social Statistics, fall 2014. The survey questions were related to students learning approaches. Questions were divided to three different categories: deep learning, surface learning and strategic learning. In this dataset answers to those question categories has been compined to columns: deep, surf and stra. The dataset includes also students ages, gender, attitude (a sum of 10 questions related to students attitude towards statistics) and test scores. 
 
+Structure and dimension of dataset
 ```{r echo=FALSE}
 #Structure and dimension of dataset
 str(learn14)
 dim(learn14)
 ```
+
+
+```{r echo=FALSE}
+library(ggplot2)
+
+# initialize plot with data and aesthetic mapping
+p1 <- ggplot(learn14, aes(x = Attitude, y = Points, col = gender))
+
+# define the visualization type (points)
+p2 <- p1 + geom_point()
+
+# add a regression line
+p3 <- p2 + geom_smooth(method = "lm")
+
+# add a main title and draw the plot
+p4 <- p3 + ggtitle("Student's attitude versus exam points")
+p4
+```
+
 
