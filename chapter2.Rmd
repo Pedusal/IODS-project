@@ -1,4 +1,4 @@
-# Insert chapter 2 title here
+# Week 2
 
 *Describe the work you have done this week and summarize your learning.*
 
@@ -7,6 +7,12 @@
 - Assume the reader has no previous knowledge of your data or the more advanced methods you are using 
 
 ```{r include=FALSE}
-lrn14 <- read.table("http://www.helsinki.fi/~kvehkala/JYTmooc/JYTOPKYS3-data.txt", sep="\t", header=TRUE)
+learn14 <- read.table("data/learning2014.txt")
+#read.table("http://www.helsinki.fi/~kvehkala/JYTmooc/JYTOPKYS3-data.txt", sep="\t", header=TRUE)
+```
+
+```{r echo=FALSE}
+str(learn14)
+dim(learn14)
 ```
 
