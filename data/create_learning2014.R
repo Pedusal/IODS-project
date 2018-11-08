@@ -33,8 +33,9 @@ learning2014 <- select(lrn14, one_of(keep_columns))
 
 learning2014 <- subset(learning2014, Points > 0)
 
+#4
 setwd("C:/Users/Pedu/Documents/GitHub/IODS-project")
-write.csv(learning2014, file = "data/learning2014.csv")
+write.table(learning2014, file = "data/learning2014.txt")
 
-test <- read.csv("data/learning2014.csv")
+test <- read.table("data/learning2014.txt")
 str(test)
