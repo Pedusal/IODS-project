@@ -21,7 +21,7 @@ dim(learn14)
 ```
 
 
-```{r echo=FALSE}
+```{r eval=FALSE, include=FALSE}
 library(ggplot2)
 
 # initialize plot with data and aesthetic mapping
@@ -36,6 +36,27 @@ p3 <- p2 + geom_smooth(method = "lm")
 # add a main title and draw the plot
 p4 <- p3 + ggtitle("Student's attitude versus exam points")
 p4
+```
+
+```{r}
+# draw a scatter plot matrix of the variables in learning2014.
+# [-1] excludes the first column (gender)
+pairs(learn14[-1])
+
+# access the GGally and ggplot2 libraries
+library(GGally)
+library(ggplot2)
+
+# create a more advanced plot matrix with ggpairs()
+p <- ggpairs(learn14, mapping = aes(col = gender, alpha = 0.3), lower = list(combo = wrap("facethist", bins = 20)))
+
+# draw the plot
+p
+```
+
+```{r echo=FALSE}
+my_model <- lm(Points ~ Attitude + stra + surf, learn14)
+summary(my_model)
 ```
 
 
