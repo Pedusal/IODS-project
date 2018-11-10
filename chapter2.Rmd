@@ -60,9 +60,32 @@ The graphical overview shows us that variables attitude, stra and surf have norm
 
 Attitude variable is correlated with points in both genders and the correlation is about 0.43. Also variable age is correlated with points but only among males. Variable surf has some correlation with variables attitude, deep and stra among males. All other variables have only little correlation or no correlation at all.
 
+I chose variables attitude, stra and surf as explanatory variables and fitted a regression model where exam points is the target variable. 
+
+Summary of the fitted model: 
+
 ```{r echo=FALSE}
 my_model <- lm(Points ~ Attitude + stra + surf, learn14)
 summary(my_model)
 ```
+Explain and interpret the statistical test related to the model parameters.
+
+The statistical test and p-value measures that how likely the estimate is zero. Eg. if the p-value is very low then most likely the estimate is not zero and we can say that it is statistically significant.
+
+In my model only attitude is statistically significant so I run regresion again using only that explanatory variable.
+
+Summary of the new model:
+```{r echo=FALSE}
+my_model <- lm(Points ~ Attitude, learn14)
+summary(my_model)
+```
+
+4. Using a summary of your fitted model, explain the relationship between the chosen explanatory variables and the target variable (interpret the model parameters). Explain and interpret the multiple R squared of the model.
+
+The estimate of the attitude variable is ~0.35 and it is statistically significant. This means that points and attitude are in relationship, where one additional attitude point gives 0.35 points more in exam according this model.
+
+The multiple R-squered of this model is 0.19, which means that this model explain about 20% of changes in dependent variable (exam points). In other words, according this modele attitude towards statistics explains 20 prosent of differencies in Introduction to Social Statistics exam results.
+
+5. Produce the following diagnostic plots: Residuals vs Fitted values, Normal QQ-plot and Residuals vs Leverage. Explain the assumptions of the model and interpret the validity of those assumptions based on the diagnostic plots. 
 
 
