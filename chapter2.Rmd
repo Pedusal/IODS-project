@@ -86,6 +86,12 @@ The estimate of the attitude variable is ~0.35 and it is statistically significa
 
 The multiple R-squered of this model is 0.19, which means that this model explain about 20% of changes in dependent variable (exam points). In other words, according this modele attitude towards statistics explains 20 prosent of differencies in Introduction to Social Statistics exam results.
 
+
+```{r echo=FALSE}
+par(mfrow = c(2,2))
+plot(my_model, which = c(1,2,5))
+```
+
 5. Produce the following diagnostic plots: Residuals vs Fitted values, Normal QQ-plot and Residuals vs Leverage. Explain the assumptions of the model and interpret the validity of those assumptions based on the diagnostic plots. 
 
 
