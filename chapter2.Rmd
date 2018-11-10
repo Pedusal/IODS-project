@@ -13,15 +13,17 @@ learn14 <- read.table("data/learning2014.txt")
 
 This dataset consist answers to a survey which was done in course Introduction to Social Statistics, fall 2014. The survey questions were related to students learning approaches. Questions were divided to three different categories: deep learning, surface learning and strategic learning. In this dataset answers to those question categories has been compined to columns: deep, surf and stra. The dataset includes also students ages, gender, attitude (a sum of 10 questions related to students attitude towards statistics) and test scores. 
 
-Structure and dimension of dataset
+Structure and dimension of the dataset:
 ```{r echo=FALSE}
-#Structure and dimension of dataset
+#Structure and dimension of data
 str(learn14)
 dim(learn14)
 ```
 
 
 ```{r eval=FALSE, include=FALSE}
+# access the GGally and ggplot2 libraries
+library(GGally)
 library(ggplot2)
 
 # initialize plot with data and aesthetic mapping
@@ -38,12 +40,12 @@ p4 <- p3 + ggtitle("Student's attitude versus exam points")
 p4
 ```
 
-```{r}
+Graphical overview of the data and summaries of the variables in the data:
+
+```{r echo=FALSE}
 # draw a scatter plot matrix of the variables in learning2014.
 # [-1] excludes the first column (gender)
-pairs(learn14[-1])
-
-# access the GGally and ggplot2 libraries
+#pairs(learn14[-1])
 library(GGally)
 library(ggplot2)
 
@@ -53,6 +55,10 @@ p <- ggpairs(learn14, mapping = aes(col = gender, alpha = 0.3), lower = list(com
 # draw the plot
 p
 ```
+
+The graphical overview shows us that variables attitude, stra and surf have normal distribution. Variable age disturibution is clearly toward left. Distributions of variables deep and points are toward right, allthough points distribution have also a quite fat tail on left side.
+
+Attitude variable is correlated with points in both genders and the correlation is about 0.43. Also variable age is correlated with points but only among males. Variable surf has some correlation with variables attitude, deep and stra among males. All other variables have only little correlation or no correlation at all.
 
 ```{r echo=FALSE}
 my_model <- lm(Points ~ Attitude + stra + surf, learn14)
