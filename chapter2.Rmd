@@ -80,18 +80,13 @@ my_model <- lm(Points ~ Attitude, learn14)
 summary(my_model)
 ```
 
-4. Using a summary of your fitted model, explain the relationship between the chosen explanatory variables and the target variable (interpret the model parameters). Explain and interpret the multiple R squared of the model.
-
 The estimate of the attitude variable is ~0.35 and it is statistically significant. This means that points and attitude are in relationship, where one additional attitude point gives 0.35 points more in exam according this model.
 
 The multiple R-squered of this model is 0.19, which means that this model explain about 20% of changes in dependent variable (exam points). In other words, according this modele attitude towards statistics explains 20 prosent of differencies in Introduction to Social Statistics exam results.
 
-
+Residuals vs Fitted values, Normal QQ-plot and Residuals vs Leverage:
 ```{r echo=FALSE}
 par(mfrow = c(2,2))
 plot(my_model, which = c(1,2,5))
 ```
-
-5. Produce the following diagnostic plots: Residuals vs Fitted values, Normal QQ-plot and Residuals vs Leverage. Explain the assumptions of the model and interpret the validity of those assumptions based on the diagnostic plots. 
-
-
+First the assumption that the errors of the model are normally distributed. QQ-plot of the residuals shows that this assumption is reosonable. The constant variance assumption implies that the size of the errors should not depend on the explanatory variables. This can be studied with a scatter plot of residuals versus model predictions. ALso this assumption seems to be valid since there is no any clear pattern in the scatter plot. Third plot shows us leverage of observations. Leverage measures how much impact a single observation has on the model. Based on that plot I would say that there is no single observation that would have too much leverage on the model.
