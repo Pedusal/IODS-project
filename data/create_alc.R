@@ -20,7 +20,8 @@ join_by <- c("school","sex","age","address","famsize","Pstatus","Medu","Fedu","M
 # join the two datasets by the selected identifiers
 math_por <- inner_join(math, por, by = join_by, suffix = c(".math", ".por"))
 
-
+str(math_por) 
+dim(math_por)
 
 #5
 
