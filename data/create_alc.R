@@ -71,7 +71,7 @@ glimpse(alc)
 setwd("C:/Users/Pedu/Documents/GitHub/IODS-project")
 write.table(alc, file = "data/alc.txt")
 
-########################################
+######################################## testing
 # use gather() to gather columns into key-value pairs and then glimpse() at the resulting data
 gather(alc) %>% glimpse()
 
