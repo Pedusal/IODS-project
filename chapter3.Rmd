@@ -5,6 +5,11 @@
 ```{r include=FALSE}
 alc <- read.table("data/alc.txt")
 #alc1 <- read.table("http://s3.amazonaws.com/assets.datacamp.com/production/course_2218/datasets/alc.txt", sep=",", header=TRUE)
+library(dplyr)
+keep_columns <- c("sex","age","famrel", "absences", "high_use")
+
+# select the 'keep_columns' to create a new dataset
+pp <- select(alc, one_of(keep_columns))
 ```
 
 This week dataset combines two dataset that approach student achievement in secondary education of two Portuguese schools. Datasets provides info about students performance in two different subject. Both of these datasets includes same information regarding students backround. 
@@ -20,6 +25,15 @@ I chose to study variables age, sex, absences and family relationship (famrel) m
 Numerically and graphically explore the distributions of your chosen variables and their relationships with alcohol consumption (use for example cross-tabulations, bar plots and box plots). Comment on your findings and compare the results of your exploration to your previously stated hypotheses. (0-5 points)
 
 
+The distributions of the chosen variables:
+```{r echo=FALSE}
+library(tidyr)
+# draw a bar plot of each variable
+gather(pp) %>% ggplot(aes(value)) + geom_bar() + facet_wrap("key", scales = "free")
+```
+
+There is no normal distribution among my variables. The absences variable does not have any reosonable pattern. A typical student age is between 15-18 and he has good quality of family relationship. Gender is roughly equally distributed among students.
+
 ```{r echo=FALSE}
 #keep_columns <- c("sex","age","famrel", "absences", "high_use")
 
@@ -27,27 +41,36 @@ Numerically and graphically explore the distributions of your chosen variables a
 #pp <- select(alc, one_of(keep_columns))
 
 # initialise a plot of high_use and age
-g1 <- ggplot(alc, aes(x = high_use, y = age, col = sex))
+g1 <- ggplot(alc, aes(x = high_use, y = age))
 
 # define the plot as a boxplot and draw it
-g1 + geom_boxplot() + ylab("age") + ggtitle("Student age by alcohol consumption and sex")
+g1 + geom_boxplot() + ylab("age") + ggtitle("Student age by alcohol consumption")
 ```
+
+It seems to be so that older students consume more alcohol than younger as I expected.
 
 ```{r echo=FALSE}
 # initialise a plot of high_use and absences
-g2 <- ggplot(alc, aes(x = high_use, y = absences, col = sex))
+g2 <- ggplot(alc, aes(x = high_use, y = absences))
 
 # define the plot as a boxplot and draw it
-g2 + geom_boxplot() + ylab("absences") + ggtitle("Student absences by alcohol consumption and sex")
+g2 + geom_boxplot() + ylab("absences") + ggtitle("Student absences by alcohol consumption")
 ```
+
+Students who have more absences seems to comsume more alcohol than students who do not skip classes, as I expected.
+
 
 ```{r echo=FALSE}
 # initialise a plot of high_use and quality of family relationships
-g2 <- ggplot(alc, aes(x = high_use, y = famrel, col = sex))
+g2 <- ggplot(alc, aes(x = high_use, y = famrel))
 
 # define the plot as a boxplot and draw it
-g2 + geom_boxplot() + ylab("famrel") + ggtitle("Student quality of family relationships by alcohol consumption and sex")
+g2 + geom_boxplot() + ylab("famrel") + ggtitle("Student quality of family relationships by alcohol consumption")
 ```
+
+There is less high alcohol use among those students who have a good quality of family relationships.
+
+All in all, these plots support my earlier hypothesis.
 
 ```{r echo=FALSE}
 # produce summary statistics by group
