@@ -71,22 +71,4 @@ glimpse(alc)
 setwd("C:/Users/Pedu/Documents/GitHub/IODS-project")
 write.table(alc, file = "data/alc.txt")
 
-######################################## testing
-# use gather() to gather columns into key-value pairs and then glimpse() at the resulting data
-gather(alc) %>% glimpse()
-
-# draw a bar plot of each variable
-gather(alc) %>% ggplot(aes(value)) + geom_bar() + facet_wrap("key", scales = "free")
-
-# initialize a plot of alcohol use
-g1 <- ggplot(data = alc, aes(x = alc_use, fill=sex))
-
-# define the plot as a bar plot and draw it
-g1 + geom_bar()
-
-# initialize a plot of 'high_use'
-g2 <- ggplot(data = alc, aes(x = high_use))
-
-# draw a bar plot of high_use by sex
-g2 + geom_bar()
-g2 + facet_wrap("sex")
+######################################## 
