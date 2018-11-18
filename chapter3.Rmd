@@ -7,13 +7,66 @@ alc <- read.table("data/alc.txt")
 #alc1 <- read.table("http://s3.amazonaws.com/assets.datacamp.com/production/course_2218/datasets/alc.txt", sep=",", header=TRUE)
 ```
 
-Names of the variables:
+This week dataset combines two dataset that approach student achievement in secondary education of two Portuguese schools. Datasets provides info about students performance in two different subject. Both of these datasets includes same information regarding students backround. 
+
+
+Names of the variables of the this week dataset:
 ```{r echo=FALSE}
 colnames(alc)
 ```
 
-```{r echo=FALSE}
+I chose to study variables age, sex, absences and family relationship (famrel) more closely and their relationship with alcohol consumption. My hypothesis is that age, sex and absences correlates positively with alcohol consumption and famrel correlates negatively. In addition I expect that male students use more alcohol than female.
 
+Numerically and graphically explore the distributions of your chosen variables and their relationships with alcohol consumption (use for example cross-tabulations, bar plots and box plots). Comment on your findings and compare the results of your exploration to your previously stated hypotheses. (0-5 points)
+
+
+```{r echo=FALSE}
+keep_columns <- c("sex","age","famrel", "absences", "high_use")
+
+# select the 'keep_columns' to create a new dataset
+#pp <- select(alc, one_of(keep_columns))
+
+# initialise a plot of high_use and age
+g1 <- ggplot(alc, aes(x = high_use, y = age, col = sex))
+
+# define the plot as a boxplot and draw it
+g1 + geom_boxplot() + ylab("age") + ggtitle("Student age by alcohol consumption and sex")
+```
+
+```{r echo=FALSE}
+# initialise a plot of high_use and absences
+g2 <- ggplot(alc, aes(x = high_use, y = absences, col = sex))
+
+# define the plot as a boxplot and draw it
+g2 + geom_boxplot() + ylab("absences") + ggtitle("Student absences by alcohol consumption and sex")
+```
+
+```{r echo=FALSE}
+# initialise a plot of high_use and quality of family relationships
+g2 <- ggplot(alc, aes(x = high_use, y = famrel, col = sex))
+
+# define the plot as a boxplot and draw it
+g2 + geom_boxplot() + ylab("famrel") + ggtitle("Student quality of family relationships by alcohol consumption and sex")
+```
+
+```{r echo=FALSE}
+# produce summary statistics by group
+alc %>% group_by(age, high_use) %>% summarise(count = n())
+```
+
+```{r include=FALSE}
+# initialize plot with data and aesthetic mapping
+p1 <- ggplot(alc, aes(x = alc_use, y = famrel))
+
+# define the visualization type (points)# add a regression line
+p2 <- p1 + geom_point()+ geom_smooth(method = "lm")
+
+
+# add a main title and draw the plot
+
+p2
+my_model <- lm(high_use ~ famrel, alc)
+plot(my_model, which = c(1,2,5))
 ```
 
 
