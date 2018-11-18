@@ -21,7 +21,7 @@ Numerically and graphically explore the distributions of your chosen variables a
 
 
 ```{r echo=FALSE}
-keep_columns <- c("sex","age","famrel", "absences", "high_use")
+#keep_columns <- c("sex","age","famrel", "absences", "high_use")
 
 # select the 'keep_columns' to create a new dataset
 #pp <- select(alc, one_of(keep_columns))
@@ -51,22 +51,22 @@ g2 + geom_boxplot() + ylab("famrel") + ggtitle("Student quality of family relati
 
 ```{r echo=FALSE}
 # produce summary statistics by group
-alc %>% group_by(age, high_use) %>% summarise(count = n())
+#alc %>% group_by(age, high_use) %>% summarise(count = n())
 ```
 
 ```{r include=FALSE}
 # initialize plot with data and aesthetic mapping
-p1 <- ggplot(alc, aes(x = alc_use, y = famrel))
+#p1 <- ggplot(alc, aes(x = alc_use, y = famrel))
 
 # define the visualization type (points)# add a regression line
-p2 <- p1 + geom_point()+ geom_smooth(method = "lm")
+#p2 <- p1 + geom_point()+ geom_smooth(method = "lm")
 
 
 # add a main title and draw the plot
 
-p2
-my_model <- lm(high_use ~ famrel, alc)
-plot(my_model, which = c(1,2,5))
+#p2
+#my_model <- lm(high_use ~ famrel, alc)
+#plot(my_model, which = c(1,2,5))
 ```
 
 
