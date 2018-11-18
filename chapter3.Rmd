@@ -22,7 +22,6 @@ colnames(alc)
 
 I chose to study variables age, sex, absences and family relationship (famrel) more closely and their relationship with alcohol consumption. My hypothesis is that age, sex and absences correlates positively with alcohol consumption and famrel correlates negatively. In addition I expect that male students use more alcohol than female.
 
-Numerically and graphically explore the distributions of your chosen variables and their relationships with alcohol consumption (use for example cross-tabulations, bar plots and box plots). Comment on your findings and compare the results of your exploration to your previously stated hypotheses. (0-5 points)
 
 
 The distributions of the chosen variables:
@@ -70,7 +69,47 @@ g2 + geom_boxplot() + ylab("famrel") + ggtitle("Student quality of family relati
 
 There is less high alcohol use among those students who have a good quality of family relationships.
 
+```{r echo=FALSE}
+# initialize a plot of 'high_use'
+g2 <- ggplot(data = alc, aes(x = high_use, fill=sex))
+
+# draw a bar plot of high_use by sex
+g2 + geom_bar()
+#g2 + facet_wrap("sex")
+```
+
+Thre are more male students among high alcohol consumers according to this graph.
+
 All in all, these plots support my earlier hypothesis.
+
+
+Summary of the fitted model:
+```{r echo=FALSE}
+# find the model with glm()
+m <- glm(high_use ~ sex+ age + famrel + absences, data = alc, family = "binomial")
+
+# print out a summary of the model
+summary(m)
+
+```
+
+All the variables are statistically significant. Although the age variable is statistically significant only in 0.1 significance level. SexM and absences variables are statistically the most significant variables. Gender and quality of family relationships seems to have quite large impact on students high use of alcohol.
+
+The coefficients of the model as odds ratios and confidence intervals for them:
+```{r echo=FALSE}
+# print out the coefficients of the model
+# compute odds ratios (OR)
+OR <- coef(m) %>% exp
+
+# compute confidence intervals (CI)
+CI <- confint(m) %>% exp
+
+# print out the odds ratios with their confidence intervals
+cbind(OR, CI)
+```
+
+These results are in line with my earlier stated hypothesis.
+
 
 ```{r echo=FALSE}
 # produce summary statistics by group
