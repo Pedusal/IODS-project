@@ -1,6 +1,8 @@
 #Petteri Salo
 #20.11.2018
-#Creating a new dataset 
+#Creating a new dataset
+#Original datasets: http://s3.amazonaws.com/assets.datacamp.com/production/course_2218/datasets/human_development.csv
+#                   http://s3.amazonaws.com/assets.datacamp.com/production/course_2218/datasets/gender_inequality.csv
 
 library(dplyr)
 
