@@ -12,7 +12,7 @@ data("Boston")
 ```
 
 
-#### Description of the dataset
+### Description of the dataset
 
 Structure of the data:
 ```{r echo=FALSE}
@@ -25,7 +25,7 @@ Dimensions of the data:
 dim(Boston)
 ```
 
-#### Graphical overview of the data
+### Graphical overview of the data
 
 ```{r echo=FALSE}
 # draw a bar plot of each variable
@@ -47,7 +47,7 @@ Summaries of the variables in the data:
 summary(Boston)
 ```
 
-#### Scaling the data
+### Scaling the data
 
 Summaries of the variables in the scaled data:
 ```{r echo=FALSE}
@@ -64,7 +64,6 @@ boston_scaled <- as.data.frame(boston_scaled)
 
 All variables have now a zero mean. 
 
-Standardize the dataset and print out summaries of the scaled data. How did the variables change? Create a categorical variable of the crime rate in the Boston dataset (from the scaled crime rate). Use the quantiles as the break points in the categorical variable. Drop the old crime rate variable from the dataset. Divide the dataset to train and test sets, so that 80% of the data belongs to the train set. (0-2 points)
 ```{r echo=FALSE}
 #4
 # create a quantile vector of crim
@@ -96,9 +95,7 @@ test <- boston_scaled[-ind,]
 
 ```
 
-#### LDA
-
-Fit the linear discriminant analysis on the train set. Use the categorical crime rate as the target variable and all the other variables in the dataset as predictor variables. Draw the LDA (bi)plot. (0-3 points)
+### LDA
 
 LDA (bi)plot:
 ```{r echo=FALSE}
@@ -127,8 +124,9 @@ plot(lda.fit, dimen=3, col=classes, pch=classes)
 lda.arrows(lda.fit,myscale=1)
 ```
 
-Save the crime categories from the test set and then remove the categorical crime variable from the test dataset. Then predict the classes with the LDA model on the test data. Cross tabulate the results with the crime categories from the test set. Comment on the results. (0-3 points)
-#### Predicting with LDA model
+
+### Predicting with LDA model
+
 Cross table of the results with the crime categories from the test set:
 ```{r echo=FALSE}
 #6
@@ -148,9 +146,7 @@ table(correct = correct_classes , predicted = lda.pred$class)
 The model seems to work quite well!
 
 
-Reload the Boston dataset and standardize the dataset (we did not do this in the Datacamp exercises, but you should scale the variables to get comparable distances). Calculate the distances between the observations. Run k-means algorithm on the dataset. Investigate what is the optimal number of clusters and run the algorithm again. Visualize the clusters (for example with the pairs() or ggpairs() functions, where the clusters are separated with colors) and interpret the results. (0-4 points)
-
-#### Clustering the (scaled)dataset
+### Clustering the (scaled)dataset
  
 In this part I Calculate the distances between the observations, run k-means algorithm on the data and then investigate what is the optimal number of clusters and run the algorithm again.
 
@@ -176,12 +172,23 @@ twcss <- sapply(1:k_max, function(k){kmeans(boston_scaled, k)$tot.withinss})
 # visualize the results
 qplot(x = 1:k_max, y = twcss, geom = 'line')
 
+```
+
+Based on above total within sum of squres plot, I would say that 2 is optimal number of clusters.
+
+Visualization of the clusters:
+```{r echo=FALSE}
+
 # k-means clustering
 km <-kmeans(boston_scaled, centers = 2)
 
 # plot the Boston dataset with clusters
 pairs(boston_scaled, col = km$cluster)
 ```
+
+
+
+
 
 ```{r include=FALSE}
 # look at the summary of the distances
