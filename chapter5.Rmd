@@ -28,6 +28,18 @@ summary(human_)
 #2
 # perform principal component analysis (with the SVD method)
 pca_human <- prcomp(human_)
+
+# create a summary of pca_human
+s <- summary(pca_human)
+
+# rounded percetanges of variance captured by each PC
+pca_pr <- round(1*s$importance[2, ], digits = 5)
+
+# print out the percentages of variance
+pca_pr
+
+# draw a biplot of the principal component representation and the original variables
+biplot(pca_human, choices = 1:2, cex=c(0.8, 1))
 ```
 
 ### PCA on the standardized data
@@ -37,9 +49,18 @@ pca_human <- prcomp(human_)
 # standardize the variables
 human_std <- scale(human_)
 
-# print out summaries of the standardized variables
-summary(human_)
-
 # perform principal component analysis (with the SVD method)
 pca_human <- prcomp(human_std)
+
+# create a summary of pca_human
+s <- summary(pca_human)
+
+# rounded percetanges of variance captured by each PC
+pca_pr <- round(1*s$importance[2, ], digits = 5)
+
+# print out the percentages of variance
+pca_pr
+
+# draw a biplot of the principal component representation and the original variables
+biplot(pca_human, choices = 1:2, cex=c(0.8, 1))
 ```
