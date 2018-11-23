@@ -33,7 +33,7 @@ pca_human <- prcomp(human_)
 s <- summary(pca_human)
 
 # rounded percetanges of variance captured by each PC
-pca_pr <- round(1*s$importance[2, ], digits = 5)
+pca_pr <- round(100*s$importance[2, ], digits = 1)
 
 # print out the percentages of variance
 pca_pr
@@ -56,7 +56,7 @@ pca_human <- prcomp(human_std)
 s <- summary(pca_human)
 
 # rounded percetanges of variance captured by each PC
-pca_pr <- round(1*s$importance[2, ], digits = 5)
+pca_pr <- round(100*s$importance[2, ], digits = 1)
 
 # print out the percentages of variance
 pca_pr
