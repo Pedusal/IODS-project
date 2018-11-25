@@ -33,7 +33,7 @@ ggpairs(Boston)
 ```
 
 
-variables have the highest correlation (). Crim, zn and chas variables distributions are clearly skewed towards left. Rm has quite normal distribution. Age and black varibles have the distuributions that are skewed the most towards right.
+Variables dis and nox have the highest correlation in absolute value (-0,769). On the other hand variables nox and indus have the highest positive correlation (0,764). Distributions of variables crim, zn and chas are clearly skewed towards left. Rm has quite normal distribution. Variables age and black have the distuributions that are skewed the most towards right.
 
 
 ```{r include=FALSE}
@@ -186,17 +186,21 @@ Visualization of the clusters:
 km <-kmeans(boston_scaled, centers = 2)
 
 # plot the Boston dataset with clusters
-pairs(boston_scaled, col = km$cluster)
+pairs(boston_scaled[,0:7], col = km$cluster)
+# plot the Boston dataset with clusters
+pairs(boston_scaled[,8:14], col = km$cluster)
 ```
 
 Bonus
 
 ```{r include=FALSE}
+boston_scaled <- as.data.frame(boston_scaled)
+
 km <-kmeans(boston_scaled, centers = 3)
 model <- lda(km$cluster~ ., data = boston_scaled)
 
 # the function for lda biplot arrows
-lda.arrows <- function(x, myscale = 1, arrow_heads = 0.1, color = "red", tex = 0.75, choices = c(1,2)){
+lda.arrows <- function(x, myscale = 1, arrow_heads = 0.1, color = "blue", tex = 0.7, choices = c(1,2)){
   heads <- coef(x)
   arrows(x0 = 0, y0 = 0, 
          x1 = myscale * heads[,choices[1]], 
@@ -205,12 +209,10 @@ lda.arrows <- function(x, myscale = 1, arrow_heads = 0.1, color = "red", tex = 0
        cex = tex, col=color, pos=3)
 }
 
-# target classes as numeric
-classes <- as.numeric(train$crime)
 
 # plot the lda results
-plot(lda.fit, dimen=3, col=classes, pch=classes)
-lda.arrows(lda.fit,myscale=1)
+plot(model, dimen=3, col=km$cluster, pch=km$cluster)
+lda.arrows(model,myscale=1)
 ```
 
 
