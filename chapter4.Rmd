@@ -33,6 +33,7 @@ dim(Boston)
 # draw a bar plot of each variable
 ggpairs(Boston[,0:7])
 ggpairs(Boston[,8:14])
+ggpairs(Boston, mapping = aes(alpha = 0.1),lower = list(combo = wrap("facethist", bins = 20)))
 ```
 
 
