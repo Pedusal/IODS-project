@@ -14,6 +14,8 @@ data("Boston")
 
 ### Description of the dataset
 
+The datasets is part of R package "MASS" and it consists housing values in suburbs of Boston. More details about variables can be founf from here: https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/Boston.html
+
 Structure of the data:
 ```{r echo=FALSE}
 str(Boston)
@@ -127,6 +129,7 @@ plot(lda.fit, dimen=2, col=classes, pch=classes)
 lda.arrows(lda.fit,myscale=1)
 ```
 
+Variable rad is clearly the most influencial linear separator for the clusters.
 
 ### Predicting with LDA model
 
@@ -216,7 +219,7 @@ plot(model, dimen=3, col=km$cluster, pch=km$cluster)
 lda.arrows(model,myscale=1)
 ```
 
-Variables age and rad are the most influencial linear separators for the clusters
+Variables age and rad are the most influencial linear separators for the clusters.
 
 ### Super-Bonus
 
