@@ -29,7 +29,8 @@ dim(Boston)
 
 ```{r echo=FALSE}
 # draw a bar plot of each variable
-ggpairs(Boston)
+ggpairs(Boston[,0:7])
+ggpairs(Boston[,8:14])
 ```
 
 
@@ -109,7 +110,7 @@ lda.fit <- lda(crime ~ . , data = train)
 lda.fit
 
 # the function for lda biplot arrows
-lda.arrows <- function(x, myscale = 1, arrow_heads = 0.1, color = "red", tex = 0.75, choices = c(1,2)){
+lda.arrows <- function(x, myscale = 1, arrow_heads = 0.1, color = "black", tex = 0.75, choices = c(1,2)){
   heads <- coef(x)
   arrows(x0 = 0, y0 = 0, 
          x1 = myscale * heads[,choices[1]], 
@@ -191,9 +192,9 @@ pairs(boston_scaled[,0:7], col = km$cluster)
 pairs(boston_scaled[,8:14], col = km$cluster)
 ```
 
-Bonus
+### Bonus
 
-```{r include=FALSE}
+```{r echo=FALSE}
 boston_scaled <- as.data.frame(boston_scaled)
 
 km <-kmeans(boston_scaled, centers = 3)
@@ -215,7 +216,26 @@ plot(model, dimen=3, col=km$cluster, pch=km$cluster)
 lda.arrows(model,myscale=1)
 ```
 
+Variables age and rad are the most influencial linear separators for the clusters
 
+### Super-Bonus
+
+```{r echo=FALSE}
+model_predictors <- dplyr::select(train, -crime)
+# check the dimensions
+dim(model_predictors)
+dim(lda.fit$scaling)
+# matrix multiplication
+matrix_product <- as.matrix(model_predictors) %*% lda.fit$scaling
+matrix_product <- as.data.frame(matrix_product)
+
+library(plotly)
+plot_ly(x = matrix_product$LD1, y = matrix_product$LD2, z = matrix_product$LD3, type= 'scatter3d', mode='markers', color = train$crime)
+```
+
+```{r include=FALSE}
+plot_ly(x = matrix_product$LD1, y = matrix_product$LD2, z = matrix_product$LD3, type= 'scatter3d', mode='markers')
+```
 
 
 ```{r include=FALSE}
