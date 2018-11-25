@@ -1,5 +1,103 @@
 # Week 5
 
 
+### Description of the dataset
 
 
+```{r echo=FALSE}
+# draw a bar plot of each variable
+ggpairs(human_) + ggtitle("Distributions of the variables")
+```
+commenting on the distributions of the variables
+#### Correlations between variables
+
+```{r echo=FALSE}
+# calculate the correlation matrix and round it
+cor_matrix<-cor(human_) %>% round(2)
+# visualize the correlation matrix
+corrplot(cor_matrix, order = "hclust", addrect = 2, type = "upper",tl.col = "black", tl.srt = 45, tl.cex = 0.7)
+```
+and the relationships between them.
+#### Summaries of the variables in the data
+```{r echo=FALSE}
+summary(human_)
+```
+### Principal component analysis (PCA) on the not standardized data
+
+```{r echo=FALSE}
+#2
+# perform principal component analysis (with the SVD method)
+pca_human <- prcomp(human_)
+
+# create a summary of pca_human
+s <- summary(pca_human)
+
+# rounded percetanges of variance captured by each PC
+pca_pr <- round(100*s$importance[2, ], digits = 1)
+
+# print out the percentages of variance
+pca_pr
+
+# draw a biplot of the principal component representation and the original variables
+biplot(pca_human, choices = 1:2, cex=c(0.8, 1))
+```
+
+### PCA on the standardized data
+
+```{r echo=FALSE}
+#3
+# standardize the variables
+human_std <- scale(human_)
+
+# perform principal component analysis (with the SVD method)
+pca_human <- prcomp(human_std)
+
+# create a summary of pca_human
+s <- summary(pca_human)
+
+# rounded percetanges of variance captured by each PC
+pca_pr <- round(100*s$importance[2, ], digits = 1)
+
+# print out the percentages of variance
+pca_pr
+
+# draw a biplot of the principal component representation and the original variables
+biplot(pca_human, choices = 1:2, cex=c(0.8, 1))
+```
+
+
+
+### Tea time !
+#### visualize the dataset
+```{r echo=FALSE}
+# 5
+# load the data
+#
+# the tea dataset and packages FactoMineR, ggplot2, dplyr and tidyr are available
+
+# column names to keep in the dataset
+keep_columns <- c("Tea", "How", "how", "sugar", "where", "lunch")
+
+# select the 'keep_columns' to create a new dataset
+tea_time <- select(tea, one_of(keep_columns))
+
+# look at the summaries and structure of the data
+summary(tea_time)
+str(tea_time)
+dim(tea_time)
+
+# visualize the dataset
+gather(tea_time) %>% ggplot(aes(value)) + facet_wrap("key", scales = "free") + theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8)) + geom_bar()
+
+```
+#### Summary of the model
+```{r echo=FALSE}
+# multiple correspondence analysis
+mca <- MCA(tea_time, graph = FALSE)
+
+# summary of the model
+summary(mca)
+
+# visualize MCA
+plot(mca, invisible=c("ind"), habillage = "quali")
+```
