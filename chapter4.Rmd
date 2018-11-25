@@ -29,12 +29,14 @@ dim(Boston)
 
 ```{r echo=FALSE}
 # draw a bar plot of each variable
-gather(Boston) %>% ggplot(aes(value)) + geom_bar(aes()) + facet_wrap("key", scales = "free") + ggtitle("Distributions of the variables")
+ggpairs(Boston)
 ```
 
-Correlations between variables:
 
-```{r echo=FALSE}
+variables have the highest correlation (). Crim, zn and chas variables distributions are clearly skewed towards left. Rm has quite normal distribution. Age and black varibles have the distuributions that are skewed the most towards right.
+
+
+```{r include=FALSE}
 # calculate the correlation matrix and round it
 cor_matrix<-cor(Boston) %>% round(2)
 
@@ -120,7 +122,7 @@ lda.arrows <- function(x, myscale = 1, arrow_heads = 0.1, color = "red", tex = 0
 classes <- as.numeric(train$crime)
 
 # plot the lda results
-plot(lda.fit, dimen=3, col=classes, pch=classes)
+plot(lda.fit, dimen=2, col=classes, pch=classes)
 lda.arrows(lda.fit,myscale=1)
 ```
 
@@ -177,6 +179,7 @@ qplot(x = 1:k_max, y = twcss, geom = 'line')
 Based on above total within sum of squres plot, I would say that 2 is optimal number of clusters.
 
 Visualization of the clusters:
+
 ```{r echo=FALSE}
 
 # k-means clustering
@@ -186,6 +189,29 @@ km <-kmeans(boston_scaled, centers = 2)
 pairs(boston_scaled, col = km$cluster)
 ```
 
+Bonus
+
+```{r include=FALSE}
+km <-kmeans(boston_scaled, centers = 3)
+model <- lda(km$cluster~ ., data = boston_scaled)
+
+# the function for lda biplot arrows
+lda.arrows <- function(x, myscale = 1, arrow_heads = 0.1, color = "red", tex = 0.75, choices = c(1,2)){
+  heads <- coef(x)
+  arrows(x0 = 0, y0 = 0, 
+         x1 = myscale * heads[,choices[1]], 
+         y1 = myscale * heads[,choices[2]], col=color, length = arrow_heads)
+  text(myscale * heads[,choices], labels = row.names(heads), 
+       cex = tex, col=color, pos=3)
+}
+
+# target classes as numeric
+classes <- as.numeric(train$crime)
+
+# plot the lda results
+plot(lda.fit, dimen=3, col=classes, pch=classes)
+lda.arrows(lda.fit,myscale=1)
+```
 
 
 
