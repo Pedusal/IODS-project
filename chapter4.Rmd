@@ -30,23 +30,16 @@ dim(Boston)
 ### Graphical overview of the data
 
 ```{r echo=FALSE}
-# draw a bar plot of each variable
-ggpairs(Boston[,0:7])
-ggpairs(Boston[,8:14])
-ggpairs(Boston, mapping = aes(alpha = 0.1),lower = list(combo = wrap("facethist", bins = 20)))
-```
+gather(Boston) %>% ggplot(aes(value)) + facet_wrap("key", scales = "free") + geom_histogram()
 
-
-Variables dis and nox have the highest correlation in absolute value (-0,769). On the other hand variables nox and indus have the highest positive correlation (0,764). Distributions of variables crim, zn and chas are clearly skewed towards left. Rm has quite normal distribution. Variables age and black have the distuributions that are skewed the most towards right.
-
-
-```{r include=FALSE}
 # calculate the correlation matrix and round it
 cor_matrix<-cor(Boston) %>% round(2)
 
 # visualize the correlation matrix
 corrplot(cor_matrix, order = "hclust", addrect = 2, type = "upper",tl.col = "black", tl.srt = 45, tl.cex = 0.7)
 ```
+
+Variables rad and tax have the highest correlation (0,91). Other variable pairs that have high correlation (in abosolute value greater than 0,7) are "indus,nox", "indus,tax", "nox,age", "rm,mediv", "indus,dis", "nox,dis", "age,dis" and "lstat,medv". Distributions of variables crim, dis and lstat are clearly skewed towards left. Rm and medv have quite normal distribution. Variables age and black have the distuributions that are skewed towards right.
 
 Summaries of the variables in the data:
 ```{r echo=FALSE}
