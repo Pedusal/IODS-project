@@ -41,7 +41,7 @@ Variables Life.Exp and Mat.Mor have the highest correlation in absolutevalue (-0
 
 ### Principal component analysis (PCA) on the not standardized data
 
-PC1 captures almost 100% of the variance in the data
+PC1 captures almost 100% of the variance in the data. This is because variance of GNI is much higher compared to other variables variance.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 #2
@@ -56,6 +56,8 @@ biplot(pca_human, choices = 1:2, cex=c(0.8, 1))
 
 ### PCA on the standardized data
 
+Now we have standardized the data and PCA should be much more reasonable.
+
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 #3
 # standardize the variables
@@ -68,13 +70,14 @@ pca_human <- prcomp(human_std)
 summary(pca_human)
 ```
 
+This time PC1 is capturing 53.6 % of variation, PC2 16.2% and cumulatively the first two PCs are capturing 69.8 % of variation.
 
 ``` {r echo=FALSE}
 # draw a biplot of the principal component representation and the original variables
 biplot(pca_human, choices = 1:2, cex=c(0.8, 1))
 ```
 
-
+In PC1 Abo.Birth and Mat.Mor are pointing on the right and GNI, Edu.Exp, Life.Exp and Edu2.FM on the left. These six variables are correleted with each other (positively or negatively). Parli.F and Labo.FM are pointing to same direction so they high positive correlation. Although they are orthogonal compared to other variables, meaning that they have no correlation with other variables.
 
 ### Tea time !
 
@@ -115,3 +118,6 @@ summary(mca)
 # visualize MCA
 plot(mca, invisible=c("ind"), habillage = "quali")
 ```
+
+Dim 1 is capturing 15.24 % of the overall variance and Dim 2 14.23% of the overall variance. Together the first two variables captures 29.47% of the variance, so they are capturing major part of the overal varince of the data. 
+
