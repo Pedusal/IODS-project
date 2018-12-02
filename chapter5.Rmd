@@ -14,11 +14,11 @@ library(FactoMineR)
 ### Description of the dataset
 #### Summaries of the variables in the data:
 
-```{r echo=FALSE}
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 summary(human_)
 ```
 
-```{r echo=FALSE}
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 # draw a bar plot of each variable
 gather(human_) %>% ggplot(aes(value)) + facet_wrap("key", scales = "free") + geom_histogram() + ggtitle("Distributions of variables")
 ```
@@ -34,34 +34,29 @@ cor_matrix<-cor(human_) %>% round(2)
 corrplot(cor_matrix, order = "hclust", addrect = 2, type = "upper",tl.col = "black", tl.srt = 45, tl.cex = 0.7)
 ```
 
-Variables rad and tax have the highest correlation (0,91). Other variable pairs that have high correlation (in abosolute value greater than 0,7) are "indus,nox", "indus,tax", "nox,age", "rm,mediv", "indus,dis", "nox,dis", "age,dis" and "lstat,medv".
+Variables Life.Exp and Mat.Mor have the highest correlation in absolutevalue (-0,86). Other variable pairs that have high correlation (in abosolute value greater than 0,7) are "Mat.Mor,Edu.Exp", "Edu.Exp,Life.Exp", and "Mat.Mor,Ado.Birth".
 
 
 
 
 ### Principal component analysis (PCA) on the not standardized data
 
-```{r echo=FALSE}
+PC1 captures almost 100% of the variance in the data
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 #2
 # perform principal component analysis (with the SVD method)
 pca_human <- prcomp(human_)
 
 # create a summary of pca_human
-s <- summary(pca_human)
-
-# rounded percetanges of variance captured by each PC
-pca_pr <- round(100*s$importance[2, ], digits = 1)
-
-# print out the percentages of variance
-pca_pr
-
+summary(pca_human)
 # draw a biplot of the principal component representation and the original variables
 biplot(pca_human, choices = 1:2, cex=c(0.8, 1))
 ```
 
 ### PCA on the standardized data
 
-```{r echo=FALSE}
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 #3
 # standardize the variables
 human_std <- scale(human_)
@@ -70,14 +65,11 @@ human_std <- scale(human_)
 pca_human <- prcomp(human_std)
 
 # create a summary of pca_human
-s <- summary(pca_human)
+summary(pca_human)
+```
 
-# rounded percetanges of variance captured by each PC
-pca_pr <- round(100*s$importance[2, ], digits = 1)
 
-# print out the percentages of variance
-pca_pr
-
+``` {r echo=FALSE}
 # draw a biplot of the principal component representation and the original variables
 biplot(pca_human, choices = 1:2, cex=c(0.8, 1))
 ```
@@ -85,6 +77,9 @@ biplot(pca_human, choices = 1:2, cex=c(0.8, 1))
 
 
 ### Tea time !
+
+The tea dataset is from FactoMineR package
+
 #### visualize the dataset
 ```{r echo=FALSE}
 # 5
