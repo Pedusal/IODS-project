@@ -3,10 +3,62 @@
 
 
 ```{r include=FALSE}
+BPRSL <- read.table("data/BPRSL.txt")
+RATSL <- read.table("data/RATSL.txt")
+
+RATSL$ID <- factor(RATSL$ID)
+RATSL$Group <- factor(RATSL$Group)
+
+# Factor treatment & subject
+BPRSL$treatment <- factor(BPRSL$treatment)
+BPRSL$subject <- factor(BPRSL$subject)
 
 library(tidyr)
 library(ggplot2)
 library(corrplot)
 library(dplyr)
 library(GGally)
+```
+
+
+### RATS data
+
+#### Structure of the data:
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+str(RATSL)
+```
+
+#### visualization
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+# Draw the plot
+ggplot(RATSL, aes(x = Time, y = Weight, linetype = ID)) +
+  geom_line() +
+  scale_linetype_manual(values = rep(1:10, times=4)) +
+  facet_grid(. ~ Group, labeller = label_both) +
+  theme(legend.position = "none") + 
+  scale_y_continuous(limits=c(min(RATSL$Weight),max(RATSL$Weight)))
+```
+
+### BPRSL data
+
+#### Structure of the data:
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+str(BPRSL)
+```
+
+#### Visualization
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+# Draw the plot
+ggplot(BPRSL, aes(x = week, y = bprs, linetype = subject)) +
+  geom_line() +
+  scale_linetype_manual(values = rep(1:10, times=4)) +
+  facet_grid(. ~ treatment, labeller = label_both) +
+  theme(legend.position = "none") + 
+  scale_y_continuous(limits = c(min(BPRSL$bprs), max(BPRSL$bprs)))
 ```
