@@ -73,3 +73,8 @@ summary(RATSL)
 # Long story short: in long format there are more observations but less variables
 # and in short form opposite. In long form there are different key-value
 # pairs which makes it easier to use
+
+
+setwd("C:/Users/Pedu/Documents/GitHub/IODS-project")
+write.table(BPRSL, "data/BPRSL.txt")
+write.table(RATSL, "data/RATSL.txt")
