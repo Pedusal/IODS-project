@@ -1,3 +1,5 @@
+library(dplyr)
+library(tidyr)
 
 # 1
 # Read the BPRS data
@@ -42,6 +44,10 @@ summary(RATS)
 BPRS$treatment <- factor(BPRS$treatment)
 BPRS$subject <- factor(BPRS$subject)
 
+# Factor variables ID and Group
+RATS$ID <- factor(RATS$ID)
+RATS$Group <- factor(RATS$Group)
+
 # 3
 
 # Convert to long form
@@ -49,3 +55,21 @@ BPRSL <-  BPRS %>% gather(key = weeks, value = bprs, -treatment, -subject)
 
 # Extract the week number
 BPRSL <-  BPRSL %>% mutate(week = as.integer(substr(BPRSL$weeks,5,6)))
+
+RATSL <- RATS %>%
+  gather(key = WD, value = Weight, -ID, -Group) %>%
+  mutate(Time = as.integer(substr(WD,3,4))) 
+
+# 4 
+
+names(BPRSL)
+str(BPRSL)
+summary(BPRSL)
+
+names(RATSL)
+str(RATSL)
+summary(RATSL)
+
+# Long story short: in long format there are more observations but less variables
+# and in short form opposite. In long form there are different key-value
+# pairs which makes it easier to use
