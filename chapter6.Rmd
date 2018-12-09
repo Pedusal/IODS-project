@@ -1,0 +1,12 @@
+# Week 6 - Analysis of longitudinal data
+
+
+
+```{r include=FALSE}
+
+library(tidyr)
+library(ggplot2)
+library(corrplot)
+library(dplyr)
+library(GGally)
+```
